@@ -1,2 +1,2 @@
-# Blug_mysql_Group5_project
+# BlugForumGroup5
 Group5 assignment files will be stored in this repository
