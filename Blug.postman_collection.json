@@ -1,0 +1,52 @@
+{
+"info": {
+"name": "Blug Forum Full API",
+"_postman_id": "blug-forum-full-001",
+"description": "Complete Postman collection for all 36 endpoints of the Blug forum backend",
+"schema": "[https://schema.getpostman.com/json/collection/v2.1.0/collection.json](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)"
+},
+"item": [
+{
+"name": "Auth",
+"item": [
+{ "name": "Register User", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  "username":"testuser",\n  "email":"[testuser@test.com](mailto:testuser@test.com)",\n  "password":"password123",\n  "display_name":"Test User"\n}"}, "url":{"raw":"{{base_url}}/api/auth/register","host":["{{base_url}}"],"path":["api","auth","register"]}} },
+{ "name": "Login User", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  "username":"testuser",\n  "password":"password123"\n}"}, "url":{"raw":"{{base_url}}/api/auth/login","host":["{{base_url}}"],"path":["api","auth","login"]}} },
+{ "name": "Check Session", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/auth/session","host":["{{base_url}}"],"path":["api","auth","session"]}} },
+{ "name": "Logout User", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/auth/logout","host":["{{base_url}}"],"path":["api","auth","logout"]}} }
+]
+},
+{
+"name": "Forums",
+"item": [
+{ "name": "Get Forums", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums","host":["{{base_url}}"],"path":["api","forums"]}} },
+{ "name": "Create Forum", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"General Discussion",\n  "description":"Forum description"\n}"}, "url":{"raw":"{{base_url}}/api/forums","host":["{{base_url}}"],"path":["api","forums"]}} },
+{ "name": "Get Forum By Id", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums/:forumId","host":["{{base_url}}"],"path":["api","forums",":forumId"]}} },
+{ "name": "Delete Forum By Id", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/forums/:forumId","host":["{{base_url}}"],"path":["api","forums",":forumId"]}} },
+{ "name": "Block Forum", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/forums/:forumId/block","host":["{{base_url"]},"path":["api","forums",":forumId","block"]}} }
+]
+},
+{
+"name": "Threads",
+"item": [
+{ "name": "List Threads in Forum", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums/:forumId/threads","host":["{{base_url}}"],"path":["api","forums",":forumId","threads"]}} },
+{ "name": "Create Thread", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"Test Thread",\n  "content":"Thread content",\n  "public":true\n}"}, "url":{"raw":"{{base_url}}/api/forums/:forumId/threads","host":["{{base_url}}"],"path":["api","forums",":forumId","threads"]}} },
+{ "name": "Get Thread Details", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
+{ "name": "Update Thread", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"Updated title",\n  "content":"Updated content"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
+{ "name": "Delete Thread", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
+{ "name": "Block Thread", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/block","host":["{{base_url}}"],"path":["api","threads",":threadId","block"]}} },
+{ "name": "Transfer Thread Ownership", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "newOwnerId": "userId"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/owner","host":["{{base_url}}"],"path":["api","threads",":threadId","owner"]}} }
+]
+},
+{
+"name": "Posts",
+"item": [
+{ "name": "List Posts in Thread", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/threads/:threadId/posts","host":["{{base_url}}"],"path":["api","threads",":threadId","posts"]}} },
+{ "name": "Create Post", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "content":"Post content"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/posts","host":["{{base_url}}"],"path":["api","threads",":threadId","posts"]}} },
+{ "name": "Get Post Details", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
+{ "name": "Update Post", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "content":"Updated content"\n}"}, "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
+{ "name": "Delete Post", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
+{ "name": "Block Post", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/posts/:postId/block","host":["{{base_url}}"],"path":["api","posts",":postId","block"]}} }
+]
+}
+]
+}
