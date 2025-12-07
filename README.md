@@ -53,5 +53,5 @@ This project is a ready-to-run backend for the Blug assignment using MySQL.
      
 
   
-   - 
+     
 
