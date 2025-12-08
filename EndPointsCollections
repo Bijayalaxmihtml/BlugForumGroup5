@@ -1,0 +1,68 @@
+1. Authentication
+
+Method	URL	Body	Description
+POST	/api/auth/register	{ "username": "string", "email": "string", "password": "string", "display_name": "string (optional)", "is_admin": true/false (optional) }	Register a new user
+POST	/api/auth/login	{ "username": "string", "password": "string" }	Login a user, returns session info
+GET	/api/auth/session	None	Returns current logged-in user info
+DELETE	/api/auth/logout	None	Logout user
+
+2. Users
+Method	URL	Body	Description
+PATCH	/api/users/:userId	{ "username": "string (optional)", "email": "string (optional)", "display_name": "string (optional)" }	Update a user's profile (admin or self)
+DELETE	/api/users/:userId	None	Delete a user (admin or self)
+
+3. Forums
+
+Method	URL	Body	Description
+GET	/api/forums	None	List all public, unblocked forums
+GET	/api/forums/:forumId	None	Get forum details
+POST	/api/forums	{ "title": "string", "description": "string (optional)" }	Create a forum (requires login)
+DELETE	/api/forums/:forumId	None	Delete a forum (admin only)
+PATCH	/api/forums/:forumId/block	{ "blocked": true/false }	Block/unblock forum (admin only)
+
+4. Threads
+
+Method	URL	Body	Description
+GET	/api/forums/:forumId/threads	None	List threads in a forum (public + accessible private)
+POST	/api/forums/:forumId/threads	{ "title": "string", "is_private": true/false (optional) }	Create a thread (login required)
+GET	/api/threads/:threadId	None	Get thread details including moderators
+PATCH	/api/threads/:threadId	{ "title": "string (optional)", "is_private": true/false (optional)" }	Update thread (owner only)
+DELETE	/api/threads/:threadId	None	Delete thread (owner only)
+PATCH	/api/threads/:threadId/block	{ "blocked": true/false }	Block/unblock thread (moderator only)
+
+Thread Ownership & Moderators
+
+Method	URL	Body	Description
+POST	/api/threads/:threadId/owner	{ "newOwnerId": number }	Transfer ownership (current owner only)
+POST	/api/threads/:threadId/moderators	{ "userId": number }	Add a moderator (owner only)
+DELETE	/api/threads/:threadId/moderators/:userId	None	Remove a moderator (owner only)
+Private Thread Members
+Method	URL	Body	Description
+POST	/api/threads/:threadId/members	{ "userId": number }	Invite member (moderator only)
+DELETE	/api/threads/:threadId/members/:userId	None	Remove member (moderator only)
+GET	/api/threads/:threadId/members	None	Get list of owner, moderators, members
+
+5. Posts
+
+Method	URL	Body	Description
+GET	/api/threads/:threadId/posts	None	List posts in thread (unblocked only)
+POST	/api/threads/:threadId/posts	{ "content": "string" }	Create a post (thread access required)
+GET	/api/posts/:postId	None	Get a single post (unblocked only)
+PATCH	/api/posts/:postId	{ "content": "string" }	Edit post (owner/admin only)
+DELETE	/api/posts/:postId	None	Delete post (author/moderator/owner/admin)
+PATCH	/api/posts/:postId/block	{ "blocked": true/false }	Block/unblock post (moderator/owner/admin)
+
+6. Admin
+
+Method	URL	Body	Description
+GET	/api/administrator/users	None	List all users with roles
+PATCH	/api/administrator/users/:userId/block	{ "blocked": true/false }	Block/unblock a user
+PATCH	/api/administrator/users/:userId/role	{ "roleId": number }	Update user's role
+GET	/api/admin/threads	None	List all threads
+GET	/api/admin/posts	None	List all posts
+GET	/api/admin/blocked	None	List blocked users, forums, threads, posts
+
+7. Setup
+
+Method	URL	Body	Description
+POST	/api/setup/make-admin	{ "username": "string" }	Make a user admin (for initial setup)
