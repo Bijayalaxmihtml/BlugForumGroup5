@@ -1,52 +1,380 @@
 {
-"info": {
-"name": "Blug Forum Full API",
-"_postman_id": "blug-forum-full-001",
-"description": "Complete Postman collection for all 36 endpoints of the Blug forum backend",
-"schema": "[https://schema.getpostman.com/json/collection/v2.1.0/collection.json](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)"
-},
-"item": [
-{
-"name": "Auth",
-"item": [
-{ "name": "Register User", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  "username":"testuser",\n  "email":"[testuser@test.com](mailto:testuser@test.com)",\n  "password":"password123",\n  "display_name":"Test User"\n}"}, "url":{"raw":"{{base_url}}/api/auth/register","host":["{{base_url}}"],"path":["api","auth","register"]}} },
-{ "name": "Login User", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  "username":"testuser",\n  "password":"password123"\n}"}, "url":{"raw":"{{base_url}}/api/auth/login","host":["{{base_url}}"],"path":["api","auth","login"]}} },
-{ "name": "Check Session", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/auth/session","host":["{{base_url}}"],"path":["api","auth","session"]}} },
-{ "name": "Logout User", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/auth/logout","host":["{{base_url}}"],"path":["api","auth","logout"]}} }
-]
-},
-{
-"name": "Forums",
-"item": [
-{ "name": "Get Forums", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums","host":["{{base_url}}"],"path":["api","forums"]}} },
-{ "name": "Create Forum", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"General Discussion",\n  "description":"Forum description"\n}"}, "url":{"raw":"{{base_url}}/api/forums","host":["{{base_url}}"],"path":["api","forums"]}} },
-{ "name": "Get Forum By Id", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums/:forumId","host":["{{base_url}}"],"path":["api","forums",":forumId"]}} },
-{ "name": "Delete Forum By Id", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/forums/:forumId","host":["{{base_url}}"],"path":["api","forums",":forumId"]}} },
-{ "name": "Block Forum", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/forums/:forumId/block","host":["{{base_url"]},"path":["api","forums",":forumId","block"]}} }
-]
-},
-{
-"name": "Threads",
-"item": [
-{ "name": "List Threads in Forum", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/forums/:forumId/threads","host":["{{base_url}}"],"path":["api","forums",":forumId","threads"]}} },
-{ "name": "Create Thread", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"Test Thread",\n  "content":"Thread content",\n  "public":true\n}"}, "url":{"raw":"{{base_url}}/api/forums/:forumId/threads","host":["{{base_url}}"],"path":["api","forums",":forumId","threads"]}} },
-{ "name": "Get Thread Details", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
-{ "name": "Update Thread", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "title":"Updated title",\n  "content":"Updated content"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
-{ "name": "Delete Thread", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/threads/:threadId","host":["{{base_url}}"],"path":["api","threads",":threadId"]}} },
-{ "name": "Block Thread", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/block","host":["{{base_url}}"],"path":["api","threads",":threadId","block"]}} },
-{ "name": "Transfer Thread Ownership", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "newOwnerId": "userId"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/owner","host":["{{base_url}}"],"path":["api","threads",":threadId","owner"]}} }
-]
-},
-{
-"name": "Posts",
-"item": [
-{ "name": "List Posts in Thread", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/threads/:threadId/posts","host":["{{base_url}}"],"path":["api","threads",":threadId","posts"]}} },
-{ "name": "Create Post", "request": { "method": "POST", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "content":"Post content"\n}"}, "url":{"raw":"{{base_url}}/api/threads/:threadId/posts","host":["{{base_url}}"],"path":["api","threads",":threadId","posts"]}} },
-{ "name": "Get Post Details", "request": { "method": "GET", "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
-{ "name": "Update Post", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "content":"Updated content"\n}"}, "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
-{ "name": "Delete Post", "request": { "method": "DELETE", "url":{"raw":"{{base_url}}/api/posts/:postId","host":["{{base_url}}"],"path":["api","posts",":postId"]}} },
-{ "name": "Block Post", "request": { "method": "PATCH", "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\n  "blocked":true\n}"}, "url":{"raw":"{{base_url}}/api/posts/:postId/block","host":["{{base_url}}"],"path":["api","posts",":postId","block"]}} }
-]
-}
-]
+  "info": {
+    "name": "Blug Forum Full API",
+    "_postman_id": "blug-forum-full-001",
+    "description": "Complete Postman collection for the Blug forum backend (Auth, Users, Forums, Threads, Posts, Admin, Setup). Base URL variable set to http://localhost:3000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\",\n  \"display_name\": \"Test User\",\n  \"is_admin\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api","auth","register"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api","auth","login"]
+            }
+          }
+        },
+        {
+          "name": "Get Session",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/auth/session",
+              "host": ["{{base_url}}"],
+              "path": ["api","auth","session"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api","auth","logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Update user (admin or self)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newusername\",\n  \"email\": \"newemail@example.com\",\n  \"display_name\": \"New Display\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/:userId",
+              "host": ["{{base_url}}"],
+              "path": ["api","users",":userId"]
+            }
+          }
+        },
+        {
+          "name": "Delete user (admin or self)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/users/:userId",
+              "host": ["{{base_url}}"],
+              "path": ["api","users",":userId"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forums",
+      "item": [
+        {
+          "name": "List public forums",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/forums", "host": ["{{base_url}}"], "path": ["api","forums"] }
+          }
+        },
+        {
+          "name": "Get forum by id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/forums/:forumId", "host": ["{{base_url}}"], "path": ["api","forums",":forumId"] }
+          }
+        },
+        {
+          "name": "Create forum (login required)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"General\",\n  \"description\": \"General discussion\"\n}" },
+            "url": { "raw": "{{base_url}}/api/forums", "host": ["{{base_url}}"], "path": ["api","forums"] }
+          }
+        },
+        {
+          "name": "Delete forum (admin only)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/forums/:forumId", "host": ["{{base_url}}"], "path": ["api","forums",":forumId"] }
+          }
+        },
+        {
+          "name": "Block/unblock forum (admin only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"blocked\": true\n}" },
+            "url": { "raw": "{{base_url}}/api/forums/:forumId/block", "host": ["{{base_url}}"], "path": ["api","forums",":forumId","block"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Threads",
+      "item": [
+        {
+          "name": "List threads in forum",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/forums/:forumId/threads", "host": ["{{base_url}}"], "path": ["api","forums",":forumId","threads"] }
+          }
+        },
+        {
+          "name": "Create thread (login required)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My Test Thread\",\n  \"body\": \"This is the thread body\",\n  \"is_private\": false\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/forums/:forumId/threads", "host": ["{{base_url}}"], "path": ["api","forums",":forumId","threads"] }
+          }
+        },
+        {
+          "name": "Get thread details",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId", "host": ["{{base_url}}"], "path": ["api","threads",":threadId"] }
+          }
+        },
+        {
+          "name": "Update thread (owner only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Thread Title\",\n  \"is_private\": true\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId", "host": ["{{base_url}}"], "path": ["api","threads",":threadId"] }
+          }
+        },
+        {
+          "name": "Delete thread (owner only)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId", "host": ["{{base_url}}"], "path": ["api","threads",":threadId"] }
+          }
+        },
+        {
+          "name": "Block/unblock thread (moderator only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"blocked\": true\n}" },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/block", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","block"] }
+          }
+        },
+        {
+          "name": "Transfer ownership (owner only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"newOwnerId\": 3\n}" },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/owner", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","owner"] }
+          }
+        },
+        {
+          "name": "Add moderator (owner only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/moderators", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","moderators"] }
+          }
+        },
+        {
+          "name": "Remove moderator (owner only)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/moderators/:userId", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","moderators",":userId"] }
+          }
+        },
+        {
+          "name": "Invite member to private thread (moderator only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": 2\n}" },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/members", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","members"] }
+          }
+        },
+        {
+          "name": "Remove member (moderator only)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/members/:userId", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","members",":userId"] }
+          }
+        },
+        {
+          "name": "Get thread members (owner/moderator/member access)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/members", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","members"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "List posts in thread",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/posts", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","posts"] }
+          }
+        },
+        {
+          "name": "Create post (thread access required)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"This is my post\"\n}" },
+            "url": { "raw": "{{base_url}}/api/threads/:threadId/posts", "host": ["{{base_url}}"], "path": ["api","threads",":threadId","posts"] }
+          }
+        },
+        {
+          "name": "Get single post",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/posts/:postId", "host": ["{{base_url}}"], "path": ["api","posts",":postId"] }
+          }
+        },
+        {
+          "name": "Edit post (owner/admin only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"Updated post content\"\n}" },
+            "url": { "raw": "{{base_url}}/api/posts/:postId", "host": ["{{base_url}}"], "path": ["api","posts",":postId"] }
+          }
+        },
+        {
+          "name": "Delete post (author/moderator/owner/admin)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/posts/:postId", "host": ["{{base_url}}"], "path": ["api","posts",":postId"] }
+          }
+        },
+        {
+          "name": "Block/unblock post (moderator/owner/admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"blocked\": true\n}" },
+            "url": { "raw": "{{base_url}}/api/posts/:postId/block", "host": ["{{base_url}}"], "path": ["api","posts",":postId","block"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "List users with roles (admin only)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/administrator/users", "host": ["{{base_url}}"], "path": ["api","administrator","users"] }
+          }
+        },
+        {
+          "name": "Block/unblock user (admin only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"blocked\": true\n}" },
+            "url": { "raw": "{{base_url}}/api/administrator/users/:userId/block", "host": ["{{base_url}}"], "path": ["api","administrator","users",":userId","block"] }
+          }
+        },
+        {
+          "name": "Update user's role (admin only)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"roleId\": 1\n}" },
+            "url": { "raw": "{{base_url}}/api/administrator/users/:userId/role", "host": ["{{base_url}}"], "path": ["api","administrator","users",":userId","role"] }
+          }
+        },
+        {
+          "name": "List all threads (admin)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/admin/threads", "host": ["{{base_url}}"], "path": ["api","admin","threads"] }
+          }
+        },
+        {
+          "name": "List all posts (admin)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/admin/posts", "host": ["{{base_url}}"], "path": ["api","admin","posts"] }
+          }
+        },
+        {
+          "name": "List blocked items (admin)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/admin/blocked", "host": ["{{base_url}}"], "path": ["api","admin","blocked"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Setup",
+      "item": [
+        {
+          "name": "Make user admin (setup)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"admin\"\n}" },
+            "url": { "raw": "{{base_url}}/api/setup/make-admin", "host": ["{{base_url}}"], "path": ["api","setup","make-admin"] }
+          }
+        }
+      ]
+    }
+  ]
 }
