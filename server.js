@@ -316,7 +316,7 @@ app.post("/api/threads", requireLogin, async (req, res, next) => {
 
     // create first post
     await database.execute(
-      "INSERT INTO posts (thread_id, user_id, content) VALUES (?, ?, ?)",
+      "INSERT INTO posts (thread_id, created_by, content) VALUES (?, ?, ?)",
       [threadId, req.session.user.id, content]
     );
 
@@ -669,7 +669,7 @@ app.get("/api/admin/threads", requireAdmin, async (req, res, next) => {
 app.get("/api/admin/posts", requireAdmin, async (req, res, next) => {
   try {
     const [rows] = await database.execute(
-      "SELECT p.*, u.username, t.title as thread_title FROM posts p JOIN users u ON p.user_id = u.id JOIN threads t ON p.thread_id = t.id"
+      "SELECT p.*, u.username, t.title as thread_title FROM posts p JOIN users u ON p.created_by = u.id JOIN threads t ON p.thread_id = t.id"
     );
     res.json(rows);
   } catch (err) { next(err); }
@@ -698,6 +698,35 @@ app.get("/api/admin/blocked", requireAdmin, async (req, res, next) => {
     });
   } catch (err) { next(err); }
 });
+//------Block or Unblock a Forum By ID-----
+app.patch("/api/admin/forums/:forumId/block", requireAdmin, async (req, res, next) => {
+  try {
+    const { forumId } = req.params;
+    const { blocked } = req.body;
+    await database.execute("UPDATE forums SET is_blocked = ? WHERE id = ?", [blocked ? 1 : 0, forumId]);
+    res.json({ message: blocked ? "Forum blocked" : "Forum unblocked" });
+  } catch (err) { next(err); }
+});
+//------Block or Unblock a Thread By ID-----
+app.patch("/api/admin/threads/:threadId/block", requireAdmin, async (req, res, next) => {
+  try {
+    const { threadId } = req.params;
+    const { blocked } = req.body;
+    await database.execute("UPDATE threads SET is_blocked = ? WHERE id = ?", [blocked ? 1 : 0, threadId]);
+    res.json({ message: blocked ? "Thread blocked" : "Thread unblocked" });
+  } catch (err) { next(err); }
+});
+
+//------Block or Unblock a Posts By ID-----
+app.patch("/api/admin/posts/:postId/block", requireAdmin, async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+    const { blocked } = req.body;
+    await database.execute("UPDATE posts SET is_blocked = ? WHERE id = ?", [blocked ? 1 : 0, postId]);
+    res.json({ message: blocked ? "Post blocked" : "Post unblocked" });
+  } catch (err) { next(err); }
+});
+
 
 // ===== SETUP ENDPOINT =====
 // Make first user admin (for setup purposes)
@@ -723,6 +752,8 @@ app.post("/api/setup/make-admin", async (req, res, next) => {
     res.json({ message: `User ${username} is now admin` });
   } catch (err) { next(err); }
 });
+
+
 
 // ===== ERROR HANDLING =====
 app.use((req, res) => res.status(404).json({ message: "Endpoint not found" }));
