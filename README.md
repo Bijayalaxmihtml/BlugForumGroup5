@@ -50,7 +50,7 @@ This project is a ready-to-run backend for the Blug assignment using MySQL.
    - `db/seed.sql` — Seed data for roles and initial admin user.
    -`Blug.postman_collection.json` — Postman collection for manual testing.
    - PHASE2_API.md` — Full endpoint documentation (present in repo).
-     
+   - API Trails.postman collection.json - Export the APIS Postman Collection.
 
   
      
