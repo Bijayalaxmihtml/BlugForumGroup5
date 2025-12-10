@@ -1,0 +1,1225 @@
+{
+	"info": {
+		"_postman_id": "f43e7166-9067-4ca6-a396-62c7d9de192b",
+		"name": "API Trials",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40473768"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 201', function () { pm.response.to.have.status(201); });"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser16\",\n  \"email\": \"testuser16@test.com\",\n  \"password\": \"password16\",\n  \"display_name\": \"Test User\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+									"const json = pm.response.json();",
+									"pm.environment.set('user_id', json.user.id);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser17\",\n  \"password\": \"password17\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Session has user', function() {",
+									"    const json = pm.response.json();",
+									"    if (json.user) pm.environment.set('user_id', json.user.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/session",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', () => pm.response.to.have.status(200));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Update own profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"newusername\",\r\n  \"email\": \"newemail@example.com\",\r\n  \"display_name\": \"New Display Name\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A User Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n\r\n\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/48",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"48"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forums",
+			"item": [
+				{
+					"name": "Create Forum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 201', () => pm.response.to.have.status(201));",
+									"const json = pm.response.json();",
+									"// If your backend returns forum id, store it, else set manually",
+									"pm.environment.set('forum_id', 6);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"General Discussion\",\n  \"description\": \"A test forum for Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forums",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Forum By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', () => pm.response.to.have.status(200));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums/{{forum_id}}/threads",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"{{forum_id}}",
+								"threads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Forum By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums/9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forum Blocked By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forums/29/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"29",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Forums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', () => pm.response.to.have.status(200));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Threads",
+			"item": [
+				{
+					"name": "Get  thread details by thread id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List threads in a forum",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Thread By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/threads/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Thread",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 201', () => pm.response.to.have.status(201));",
+									"// Store thread_id if returned by backend",
+									"pm.environment.set('thread_id', 1);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"My New Thread\",\n  \"body\": \"This is the content of the first post in the thread.\",\n  \"is_private\": true\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forums/2/threads",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"2",
+								"threads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Thread block or unblock  thread By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/10/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"10",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch Update thread by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Updated Thread Title\",\r\n  \"is_public\": false\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Update Thread",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Updated Thread Title\",\r\n  \"is_public\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/15\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"15\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Thread By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin1\",\r\n  \"password\": \"admin1Password1234\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/10\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"10\n"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Thread Ownership & Moderators",
+			"item": [
+				{
+					"name": "Post Thread Ownership & Moderators",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"newOwnerId\": 34\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/owner",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Add a moderator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/moderators",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"moderators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Remove a moderator",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/7/moderators/34",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"7",
+								"moderators",
+								"34"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Private Thread Members",
+			"item": [
+				{
+					"name": "Get All members of a thread",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 33\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Invite a member to a private thread",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 33\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Remove a member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 33\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/members/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"members",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Post Create Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is  my another post\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is  my another post\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/posts/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is  my another post\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/5/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"5",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"Updated content for my post\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/posts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Post Block By Post ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/posts/5/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"5",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Update My Post Content",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"Updated content for my post\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/posts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Post Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin1\",\r\n  \"email\": \"admin1@example.com\",\r\n  \"password\": \"admin1Password1234\",\r\n  \"display_name\": \"New Admin\",\r\n  \"is_admin\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin1\",\r\n  \"password\": \"admin1Password1234\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Of Threads",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GET List Of Posts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin users list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin1\",\r\n  \"password\": \"admin1Password1234\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/administrator/users\n",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"administrator",
+								"users\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List blocked users, forums, threads, posts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Admin Block/Unblock user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/administrator/users/3/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"administrator",
+								"users",
+								"3",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Update Role By Admin",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roleId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/administrator/users/33/role",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"administrator",
+								"users",
+								"33",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Block/unblock forum By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/forums/29/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"forums",
+								"29",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Block/unblock thread By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/threads/10/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"threads",
+								"10",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Block/unblock post By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blocked\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/posts/5/block",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"posts",
+								"5",
+								"block"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Setup",
+			"item": [
+				{
+					"name": "Post Make a user admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"testuser\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/setup/make-admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"setup",
+								"make-admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
