@@ -17,20 +17,7 @@ This project is a ready-to-run backend for the Blug assignment using MySQL.
    node server.js
    ```
 
-   Main endpoints
-   --------------
-
-   - `POST /api/auth/register` — register
-   - `POST /api/auth/login` — login
-   - `GET /api/auth/session` — current session
-   - `GET /api/forums` — list public forums
-   - `POST /api/forums` — create forum (auth)
-   - `POST /api/forums/:forumId/threads` — create thread
-   - `POST /api/threads/:threadId/posts` — create post
-   - `GET /api/administrator/users` — admin: list users
-
-  
-
+   
    Project files 
    -----------------------------
 
